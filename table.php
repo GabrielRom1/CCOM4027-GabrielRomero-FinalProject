@@ -1,8 +1,6 @@
 <?php
-
     // include "header.html";
     // include "scriptsBase.html";
-
     // include "navbar.html";
 
     include "connection.php";
@@ -21,17 +19,17 @@
         "Medical_Conditions" => array("name")
     );
 
-    if( isset($_GET['table'])){
-        if (in_array($_GET['table'], $tables)) {
-            $table = $_GET['table']; 
-        }
-        else{
-            echo "ERROR ON URI PARAMETER";
-        }
-    }
-    else{
-        echo "ERROR ON URI PARAMETER";
-    }
+    // if( isset($_GET['table'])){
+    //     if (in_array($_GET['table'], $tables)) {
+    //         $table = $_GET['table']; 
+    //     }
+    //     else{
+    //         echo "ERROR ON URI PARAMETER";
+    //     }
+    // }
+    // else{
+    //     echo "ERROR ON URI PARAMETER";
+    // }
 
     // $edita = mysqli_real_escape_string($dbconnection, $_GET['table']);
     // $id_emp = mysqli_real_escape_string($dbconnection, $_GET['eid']);
