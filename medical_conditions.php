@@ -1,5 +1,6 @@
 <?php
-    $table = "Patients";
+    $table = "Medical_Conditions";
 
     require_once("table.php");
+
 ?>

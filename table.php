@@ -10,13 +10,15 @@
     $table_columns = array(
         "Users" => array("First Name", "Last Name", "Birth Date", "Role"),
         "Patients" => array("First Name", "Last Name", "Birth Date"),
-        "Medical_Conditions" => array("Name")
+        "Medical_Conditions" => array("Name"),
+        "Annotations" => array("Patient","Created at", "Created by", "Description", "Urgency level")
     );
     
     $table_attributes = array(
         "Users" => array("first_name", "last_name", "birth_date", "role"),
         "Patients" => array("first_name", "last_name", "birth_date"),
-        "Medical_Conditions" => array("name")
+        "Medical_Conditions" => array("name"),
+        "Annotations" => array("patient_id","created_at", "user_id", "description", "urgency_level")
     );
 
     // if( isset($_GET['table'])){
