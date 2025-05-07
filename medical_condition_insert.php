@@ -13,23 +13,24 @@
         
         $result = mysqli_query($dbconnection,$query);
         $datos = mysqli_fetch_array($result);
-    }elseif(isset($_POST['name']) )  {
+    }elseif(isset($_POST['condition_name']) )  {
             // si se setean esas variables es un post
             
             echo "post";
             
-            $name = $_POST['name'];            
-            $name = mysqli_real_escape_string($dbconnection, $name);
+            $condition_name = $_POST['condition_name'];            
+            $condition_name = mysqli_real_escape_string($dbconnection, $condition_name);
 
             // si se setea el id es que se quiere editar
             if(isset($_POST['id']) ){
                 echo "editar";
+                echo $condition_name;
                 $condition_id = $_POST['id'];
 
                 $condition_id = mysqli_real_escape_string($dbconnection, $condition_id);
 
                 // $query = "UPDATE Medical_Conditions SET first_name = '{$first_name}';";
-                $query = "UPDATE Medical_Conditions SET name = '{name}' WHERE user_id = {$user_id};";
+                $query = "UPDATE Medical_Conditions SET name = '{$condition_name}' WHERE condition_id = {$condition_id};";
 
                 // $query = "UPDATE Medical_Conditions SET first_name = '".$first_name."' , last_name = '".$last_name. "' , birth_date = '".$birth_date ."' where user_id=1;";
                 echo $query;
@@ -46,7 +47,7 @@
             }
             else{
                 echo "crear";
-                $query = "INSERT INTO Medical_Conditions (name) VALUES ('{$name}');";
+                $query = "INSERT INTO Medical_Conditions (name) VALUES ('{$condition_name}');";
                 // echo $query;
                 // echo "{$query} con f string";
                 if (mysqli_query($dbconnection,$query)){
@@ -81,7 +82,7 @@
         <form action="medical_condition_insert.php" method="post">
             <div class="form-group">
                 <label for="first_name">Nombre</label>
-                <input type="text" class="form-control" name="name" id="name" placeholder="Entre el nombre" value="<?php if($edit)print $datos['name'];?>" required>
+                <input type="text" class="form-control" name="condition_name" id="condition_name" placeholder="Entre el nombre" value="<?php if($edit)print $datos['name'];?>" required>
             </div>
 
             <?php
