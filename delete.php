@@ -1,5 +1,5 @@
 <?php
-    include("connection.php");     
+    include("connection.php"); 
 
     $primary_keys = array(
         "Users"=>"user_id",
@@ -15,38 +15,23 @@
 		$id = mysqli_real_escape_string($dbconnection, $_GET['id']);
 		$table = mysqli_real_escape_string($dbconnection, $_GET['table']);
 
+        $lowerCaseTable = strtolower($table).".php";
+
         if(in_array($table, $tables) ){
-            $query_delete = "delete from ".$table ." where ".$primary_keys[$table]."=". $id.";";
+            $query_delete = "DELETE FROM {$table} WHERE ".$primary_keys[$table]." = {$id};"; 
+            // $query_delete = "delete from ".$table ." where ".$primary_keys[$table]." = ". $id.";";
 
-            echo $query_delete;
-            // mysqli_query($dbconnection,$query_delete_works);
-            //esto lo brega el ondelete cascade
-            // 	print($query_insert);
-            // 	print "Edita $edita";
-            // 	exit();
-
-            // ONDELETE CASCADE!!!!!!
-                if (mysqli_query($dbconnection,$query_delete)) 
-                {
-                //     $query_delete_emp = "delete from emp where eid=$id_emp";
-                //     mysqli_query($dbconnection,$query_delete_emp);
-                    
-                //     header("Location: demo_struc.php");
-                    echo 'delete succesfully';
-            		header("Location: table.php?table=".$table);
-
-                }	 
-                // else 
-                // {
-                //     $error=mysqli_error($dbconnection);
-                //     mysqli_close($dbconnection);
-                //     header("Location: demo_struct.php?error=$error");
-                // }
+            echo "query delete: {$query_delete}";
+            
+            if (mysqli_query($dbconnection, $query_delete)) {
+                echo "DELETE SUCESSFULLY";
+                header("Location: $lowerCaseTable");
+            } else {
+                echo "DELETE FAIL: ".mysqli_error($dbconnection);
+            }  
         }
     }
     else{
         echo "ERROR ON URI PARAMETER";
     }
-
-
 ?>
