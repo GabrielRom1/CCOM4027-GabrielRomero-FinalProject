@@ -40,6 +40,6 @@ CREATE TABLE Annotations (
     description varchar(1000) NOT NULL,
     urgency_level ENUM('low', 'medium','high') NOT NULL,
     PRIMARY KEY (annotation_id),
-    FOREIGN KEY (patient_id) REFERENCES Patients(patient_id),
+    FOREIGN KEY (patient_id) REFERENCES Patients(patient_id) ON DELETE CASCADE,
     FOREIGN KEY (user_id) REFERENCES Users(user_id)
 );
