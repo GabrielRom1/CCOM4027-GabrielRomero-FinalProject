@@ -1,44 +1,65 @@
 <?php
     include "connection.php";
 
-    if( isset($_GET['edit']) && isset($_GET['id']) ){
-
-        
+    if( isset($_GET['edit']) && isset($_GET['id']) ){   
+        echo "get";
         $edit = $_GET['edit'];
         $id = $_GET['id'];
 
         $query = "SELECT * FROM Users WHERE user_id =".$id;
-        // echo $query;
         
         $result = mysqli_query($dbconnection,$query);
         $datos = mysqli_fetch_array($result);
-    }
-    else if(isset($_POST['first_name'])
-            && isset($_POST['last_name'])
-            && isset($_POST['birth_date']))
+    }else{
+        if(isset($_POST['first_name']) && isset($_POST['last_name']) && isset($_POST['birth_date']))  {
+            echo "post";
             
-    {
-        $first_name = $_POST['first_name'];
-        $last_name = $_POST['last_name'];
-        $birth_date = $_POST['birth_date'];
+            $first_name = $_POST['first_name'];
+            
+            $last_name = $_POST['last_name'];
+            $birth_date = $_POST['birth_date'];
 
-        if(isset($_POST['id']) ){
-            $user_id = isset($_POST['id'])
-            $query = "UPDATE Users
-                SET first_name=".$first_name. ", 
-                    last_name=".$last_name. ", 
-                    birth_date=". $birth_date. 
-                "WHERE user_id="$user_id.";"
-        }
+            if(isset($_POST['id']) ){
+                echo "editar";
+        //         $user_id = $_POST['id'];
+
+        //         $user_id = mysqli_real_escape_string($dbconnection, $user_id);
+        //         $first_name = mysqli_real_escape_string($dbconnection, $first_name);
+        //         $last_name = mysqli_real_escape_string($dbconnection, $last_name);
+        //         $birth_date = mysqli_real_escape_string($dbconnection, $birth_date);
+            
+        //         $query = "UPDATE Users SET first_name=".$first_name. ", last_name=".$last_name. ", birth_date=". $birth_date. "WHERE user_id="$user_id.";";
+            }
+        } 
         else{
-            $query = "INSERT INTO Users (first_name, last_name, birth_date, role)"
+            echo "crear";
+            // $query = "INSERT INTO Users (first_name, last_name, birth_date, role)";
+            //         echo $query;
+            //         echo 2222;
         }
+    }
+    // if(isset($_POST['first_name']) && isset($_POST['last_name']) && isset($_POST['birth_date']))  {
+    //     $first_name = $_POST['first_name'];
+    //     $last_name = $_POST['last_name'];
+    //     $birth_date = $_POST['birth_date'];
 
-        
-    }
-    else{
-        echo 'no query params';
-    }
+    //     if(isset($_POST['id']) ){
+    //         $user_id = isset($_POST['id']);
+
+    //         $user_id = mysqli_real_escape_string($dbconnection, $user_id);
+    //         $first_name = mysqli_real_escape_string($dbconnection, $first_name);
+    //         $last_name = mysqli_real_escape_string($dbconnection, $last_name);
+    //         $birth_date = mysqli_real_escape_string($dbconnection, $birth_date);
+            
+    //         $query = "UPDATE Users SET first_name=".$first_name. ", last_name=".$last_name. ", birth_date=". $birth_date. "WHERE user_id="$user_id.";";
+    //     }
+    //     else{
+    //         $query = "INSERT INTO Users (first_name, last_name, birth_date, role)";
+    //     }   
+    // }
+    // else{
+    //     echo 'no query params';
+    // }
 
     $table = 'Users';
 ?>
@@ -77,16 +98,14 @@
 
             <div class="form-group">
                 <label for="role">Role</label>
-                <select>
+                <select class="form-control" name="role" id="role" value="<?php if($edit)print $datos['role'];?>">
                     <option value="employee">Employee</option>
                     <option value="tutor">Tutor</option>
-
                 </select>
-                <input type="" class="form-control" name="role" id="role" value="<?php if($edit)print $datos['role'];?>" required>
             </div>
 
             <?php
-                if($edit)print '<input type="hidden" name="id" value='.$id.'>';
+                if($edit)print '<input type="hidden" name="id" value="'.$id.'">';
             ?>
 
             <br>
