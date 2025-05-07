@@ -35,7 +35,7 @@
                 $user_id = mysqli_real_escape_string($dbconnection, $user_id);
 
                 // $query = "UPDATE Users SET first_name = '{$first_name}';";
-                $query = "UPDATE Users SET first_name = '{$first_name}' , last_name = '{$last_name}' , birth_date = '{$birth_date}', role = '{$role}' where user_id = {$user_id};";
+                $query = "UPDATE Users SET first_name = '{$first_name}' , last_name = '{$last_name}' , birth_date = '{$birth_date}', role = '{$role}' WHERE user_id = {$user_id};";
 
                 // $query = "UPDATE Users SET first_name = '".$first_name."' , last_name = '".$last_name. "' , birth_date = '".$birth_date ."' where user_id=1;";
                 echo $query;
@@ -52,7 +52,7 @@
             }
             else{
                 echo "crear";
-                $query = "INSERT INTO Users (first_name, last_name, birth_date, role) values ('{$first_name}', '{$last_name}', '{$birth_date}', '{$role}');";
+                $query = "INSERT INTO Users (first_name, last_name, birth_date, role) VALUES ('{$first_name}', '{$last_name}', '{$birth_date}', '{$role}');";
                 // echo $query;
                 // echo "{$query} con f string";
                 if (mysqli_query($dbconnection,$query)){
