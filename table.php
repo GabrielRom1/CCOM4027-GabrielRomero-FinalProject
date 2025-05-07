@@ -25,22 +25,6 @@
         "Annotations" => array("patient_id","created_at", "user_id", "description", "urgency_level")
     );
 
-    // if( isset($_GET['table'])){
-    //     if (in_array($_GET['table'], $tables)) {
-    //         $table = $_GET['table']; 
-    //     }
-    //     else{
-    //         echo "ERROR ON URI PARAMETER";
-    //     }
-    // }
-    // else{
-    //     echo "ERROR ON URI PARAMETER";
-    // }
-
-    // $edita = mysqli_real_escape_string($dbconnection, $_GET['table']);
-    // $id_emp = mysqli_real_escape_string($dbconnection, $_GET['eid']);
-    // $id_dept = mysqli_real_escape_string($dbconnection, $_GET['did']);
-
     $query="SELECT * FROM ".$table;
 
     echo "query:";
@@ -67,6 +51,9 @@
                 // echo $lowerCaseTable;
             ?>
         </h2>
+
+        <p><a href="<?php echo trim($lowerCaseTable).'_insert.php'?>" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Insertar</a></p>
+        
         <table id="dtBasicExample" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
             <thead class="thead-light">
             <tr>
@@ -141,7 +128,7 @@
                     // Confirmation dialog
                     if (confirm('Si no tienes duda de que quieres borrar oprime OK. Si tienes duda oprime Cancel.')) {
                         // User clicked 'OK', proceed with the deletion
-                        window.location.href = 'https://ada.uprrp.edu/~gabriel.romero5/PROYECTO/delete.php?id=' + primary_key + '&table=' + table;
+                        window.location.href = "<?php echo $url?>" + 'delete.php?id=' + primary_key + '&table=' + table;
                     } else {
                         // User clicked 'Cancel', do nothing
                         alert('Deletion cancelled.');
