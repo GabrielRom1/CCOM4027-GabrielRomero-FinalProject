@@ -7,6 +7,10 @@
 
     $tables = array("Users", "Patients", "Medical_Conditions", "Patient_Condition", "Annotations");
 
+    $lowerCaseTable = strtolower($table);
+
+    $lowerCaseTable = substr($lowerCaseTable, 0, strlen($lowerCaseTable)-1);
+
     $table_columns = array(
         "Users" => array("First Name", "Last Name", "Birth Date", "Role"),
         "Patients" => array("First Name", "Last Name", "Birth Date"),
@@ -58,7 +62,10 @@
                 include "navbar.html";
             ?>
 	    <h2>
-            Lista de Users
+            <?php
+                echo $table;
+                // echo $lowerCaseTable;
+            ?>
         </h2>
         <table id="dtBasicExample" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
             <thead class="thead-light">
@@ -107,7 +114,7 @@
                     // ';
                     
                     print '
-                        <a href="#" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Edita</a>
+                        <a href="'.$lowerCaseTable.'_insert.php?edit=1&id='.$row[0] .'"class="btn btn-primary btn-sm" role="button" aria-pressed="true">Edita</a>
                         <a href="#" onclick="confirmDelete('.$primary_key.', \''.$table.'\'); return false;" class="btn btn-danger btn-sm" role="button" aria-pressed="true">Borra</a>
                     ';
                     print "</td></tr>";		
@@ -115,34 +122,33 @@
                 }
             ?>
             </tbody>
-
         </table>
 
         <?php
             include "scriptsBase.html";
         ?>  
 
-        <script>
-            $(document).ready(function () {
-                $('#dtBasicExample').DataTable();
-            });
-        </script>
-        <script>
-            
-            function confirmDelete(primary_key, table ) {
-                alert(primary_key);
-                alert(table);
+            <script>
+                $(document).ready(function () {
+                    $('#dtBasicExample').DataTable();
+                });
+            </script>
+            <script>
+                function confirmDelete(primary_key, table ) {
+                    alert(primary_key);
+                    alert(table);
 
-                // Confirmation dialog
-                 if (confirm('Si no tienes duda de que quieres borrar oprime OK. Si tienes duda oprime Cancel.')) {
-                    // User clicked 'OK', proceed with the deletion
-                    window.location.href = 'https://ada.uprrp.edu/~gabriel.romero5/PROYECTO/delete.php?id=' + primary_key + '&table=' + table;
-                } else {
-                    // User clicked 'Cancel', do nothing
-                    alert('Deletion cancelled.');
+                    // Confirmation dialog
+                    if (confirm('Si no tienes duda de que quieres borrar oprime OK. Si tienes duda oprime Cancel.')) {
+                        // User clicked 'OK', proceed with the deletion
+                        window.location.href = 'https://ada.uprrp.edu/~gabriel.romero5/PROYECTO/delete.php?id=' + primary_key + '&table=' + table;
+                    } else {
+                        // User clicked 'Cancel', do nothing
+                        alert('Deletion cancelled.');
+                    }
                 }
-            }
-        </script>
+            </script>
+        </div>
     </body>
 </html>
 <?php
