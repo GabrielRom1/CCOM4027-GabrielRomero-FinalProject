@@ -1,5 +1,88 @@
 <?php
+    include "connection.php";
 
+    // si edit tiene algo y id tiene algo entonces es que se quiere editar ese user
+    if( isset($_GET['edit']) && isset($_GET['id']) ){   
+        echo "editar";
+        $edit = $_GET['edit'];
+        $id = $_GET['id'];
+
+        $id = mysqli_real_escape_string($dbconnection, $_GET['id']);
+
+        $query = "SELECT * FROM Annotations WHERE annotation_id =".$id;
+        
+        $result = mysqli_query($dbconnection,$query);
+        $datos = mysqli_fetch_array($result);
+    }elseif(isset($_POST['description'])
+            && isset($_POST['urgency_level'])
+            && isset($_POST['created_at']) 
+            && isset($_POST['patient_id'])
+            && isset($_POST['user_id']) )  {
+            // si se setean esas variables es un post
+            $edit = false;
+            
+            echo "post";
+            
+            $description = $_POST['description'];  
+            $urgency_level = $_POST['urgency_level'];            
+            $created_at = $_POST['created_at'];            
+            $patient_id = $_POST['patient_id'];            
+            $user_id = $_POST['user_id'];            
+
+            $description = mysqli_real_escape_string($dbconnection, $description);
+            $urgency_level = mysqli_real_escape_string($dbconnection, $urgency_level);
+            $created_at = mysqli_real_escape_string($dbconnection, $created_at);
+            $patient_id = mysqli_real_escape_string($dbconnection, $patient_id);
+            $user_id = mysqli_real_escape_string($dbconnection, $user_id);
+
+
+
+
+            // si se setea el id es que se quiere editar
+            if(isset($_POST['id']) ){
+                echo "editar";
+                // echo $condition_name;
+                $annotation_id = $_POST['id'];
+                $annotation_id = mysqli_real_escape_string($dbconnection, $annotation_id);
+
+                // $query = "UPDATE Medical_Conditions SET first_name = '{$first_name}';";
+                $query = "UPDATE Annotations
+                        SET patient_id = '{$patient_id}',
+                        user_id = '{$user_id}',
+                        created_at = '{$created_at}',
+                        description = '{$description}',
+                        urgency_level = '{$urgency_level}'
+                        WHERE annotation_id = {$annotation_id};";
+
+                // $query = "UPDATE Medical_Conditions SET first_name = '".$first_name."' , last_name = '".$last_name. "' , birth_date = '".$birth_date ."' where user_id=1;";
+                echo $query;
+
+                if (mysqli_query($dbconnection,$query)) 
+                {
+                //     $query_delete_emp = "delete from emp where eid=$id_emp";
+                //     mysqli_query($dbconnection,$query_delete_emp);
+                    
+                //     header("Location: demo_struc.php");
+                    echo 'update succesfully';
+            		header("Location: annotations.php");
+                }	 
+            }
+            else{
+                echo "crear";
+                $query = "INSERT INTO Annotations (patient_id, user_id, created_at, description, urgency_level)
+                VALUES ({$patient_id}, {$user_id}, '{$created_at}', '{$description}', '{$urgency_level}');";
+                // echo $query;
+                // echo "{$query} con f string";
+                if (mysqli_query($dbconnection,$query)){
+                    echo 'create succesfully';
+            		header("Location: annotations.php");
+                }	
+            }
+        } else{
+            $edit = false;
+
+            echo "crear2";
+        }
     $table = 'Annotations';
 ?>
 
@@ -20,7 +103,45 @@
                 echo $table;
             ?>
         </h2>
-    
-                 
+
+        <form action="annotation_insert.php" method="post">
+            <div class="form-group">
+                <label for="patient_id">Patient Id</label>
+                <input type="number" class="form-control" name="patient_id" id="patient_id" placeholder="Entre el nombre" value="<?php if($edit)print $datos['patient_id'];?>" required>
+            </div>
+
+            <div class="form-group">
+                <label for="user_id">User Id</label>
+                <input type="number" class="form-control" name="user_id" id="user_id" placeholder="Entre el nombre" value="<?php if($edit)print $datos['user_id'];?>" required>
+            </div>
+
+            <div class="form-group">
+                <label for="created_at">Created at</label>
+                <input type="date" class="form-control" name="created_at" id="created_at" placeholder="Entre el nombre" value="<?php if($edit)print $datos['created_at'];?>" required>
+            </div>
+
+            <div class="form-group">
+                <label for="description">description</label>
+                <input type="text" class="form-control" name="description" id="description" placeholder="Entre el nombre" value="<?php if($edit)print $datos['description'];?>" required>
+            </div>
+
+            <div class="form-group">
+                <label for="urgency_level">Role</label>
+                <select class="form-control" name="urgency_level" id="urgency_level" value="<?php if($edit)print $datos['urgency_level'];?>">
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
+                
+                </select>
+            </div>
+        
+
+            <?php
+                if($edit)print '<input type="hidden" name="id" value="'.$id.'">';
+            ?>
+
+            <br>
+            <input type="submit" class="btn btn-primary" value="<?php if($edit)print 'Editar'; else print 'Insertar';?>">
+        </form>      
     </body>
 </html>
