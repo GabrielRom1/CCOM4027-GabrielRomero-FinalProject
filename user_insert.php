@@ -7,6 +7,7 @@
         $edit = $_GET['edit'];
         $id = $_GET['id'];
 
+
         $id = mysqli_real_escape_string($dbconnection, $_GET['id']);
 
         $query = "SELECT * FROM Users WHERE user_id =".$id;
@@ -15,7 +16,7 @@
         $datos = mysqli_fetch_array($result);
     }elseif(isset($_POST['first_name']) && isset($_POST['last_name']) && isset($_POST['birth_date']) && isset($_POST['role']))  {
             // si se setean esas variables es un post
-            
+            $edit = false;
             echo "post";
             
             $first_name = $_POST['first_name'];
@@ -61,6 +62,8 @@
                 }	
             }
         } else{
+            $edit = false;
+
             echo "crear2";
         }
     $table = 'Users';

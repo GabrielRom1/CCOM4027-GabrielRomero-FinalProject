@@ -15,6 +15,7 @@
         $datos = mysqli_fetch_array($result);
     }elseif(isset($_POST['condition_name']) )  {
             // si se setean esas variables es un post
+            $edit = false;
             
             echo "post";
             
@@ -56,6 +57,8 @@
                 }	
             }
         } else{
+            $edit = false;
+
             echo "crear2";
         }
     $table = 'Medical_Conditions';

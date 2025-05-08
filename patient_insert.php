@@ -12,7 +12,9 @@
         $result = mysqli_query($dbconnection,$query);
         $datos = mysqli_fetch_array($result);
     }elseif(isset($_POST['first_name']) && isset($_POST['last_name']) && isset($_POST['birth_date']) )  {
-            // si se setean esas variables es un post
+            // si se setean esas variables es un 
+            $edit = false;
+            
             
             echo "post";
             
@@ -47,6 +49,7 @@
                 }	 
             }
             else{
+
                 echo "crear";
                 $query = "INSERT INTO Patients (first_name, last_name, birth_date) values ('{$first_name}', '{$last_name}', '{$birth_date}');";
                 // echo $query;
@@ -57,6 +60,8 @@
                 }	
             }
         } else{
+            $edit = false;
+
             echo "crear2";
         }
     $table = 'Patients';
