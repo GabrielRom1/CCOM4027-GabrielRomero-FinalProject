@@ -11,6 +11,22 @@
         $query = "SELECT * FROM Patients WHERE patient_id =".$id;
         $result = mysqli_query($dbconnection,$query);
         $datos = mysqli_fetch_array($result);
+
+        $query_conditions = "SELECT * FROM Medical_Conditions";
+        $conditions = mysqli_query($dbconnection, $query_conditions);
+
+        
+
+        $query_patient_conditions = "SELECT condition_id FROM Patient_Condition WHERE patient_id=".$id;
+        $patient_conditions = mysqli_query($dbconnection, $query_patient_conditions);
+
+        $patient_condition_ids = array();
+        while ($row = mysqli_fetch_array($patient_conditions)) {
+            $patient_condition_ids[] = $row[0];
+        }
+
+
+        
     }elseif(isset($_POST['first_name']) && isset($_POST['last_name']) && isset($_POST['birth_date']) )  {
             // si se setean esas variables es un 
             $edit = false;
@@ -99,9 +115,44 @@
                 <input type="date" class="form-control" name="birth_date" id="birth_date" value="<?php if($edit)print $datos['birth_date'];?>" required>
             </div>
 
+        <div class="form-check">
+  
+
+            <?php
+            if($edit){
+
+            
+                while ($condition = mysqli_fetch_array($conditions)) {
+                 
+                    $condition_id = $condition[0];
+                    $condition_name = $condition[1];
+
+                    $checked = in_array($condition_id, $patient_condition_ids) ? "checked" : "";
+
+                    echo "<div class='form-check'>";
+                    echo "<input class='form-check-input' type='checkbox' name='conditions[]' value='$condition_id' id='cond_$condition_id' $checked>";
+                    echo "<label class='form-check-label' for='cond_$condition_id'>$condition_name</label>";
+                    echo "</div>";
+                }
+            }
+            else{
+                echo 'fixe!';
+            }
+            ?>
+     
+
+
+
+
+
+
+
             <?php
                 if($edit)print '<input type="hidden" name="id" value="'.$id.'">';
             ?>
+
+
+
 
             <br>
             <input type="submit" class="btn btn-primary" value="<?php if($edit)print 'Editar'; else print 'Insertar';?>">
