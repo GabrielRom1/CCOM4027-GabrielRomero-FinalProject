@@ -84,6 +84,11 @@
             echo "crear2";
         }
     $table = 'Annotations';
+    $query_patients = "SELECT * FROM Patients";
+    $patients = mysqli_query($dbconnection, $query_patients);
+
+    $query_users = "SELECT * FROM Users";
+    $users = mysqli_query($dbconnection, $query_users);
 ?>
 
 <!DOCTYPE html>
@@ -105,16 +110,37 @@
         </h2>
 
         <form action="annotation_insert.php" method="post">
-            <div class="form-group">
-                <label for="patient_id">Patient Id</label>
-                <input type="number" class="form-control" name="patient_id" id="patient_id" placeholder="Entre el nombre" value="<?php if($edit)print $datos['patient_id'];?>" required>
-            </div>
 
             <div class="form-group">
-                <label for="user_id">User Id</label>
-                <input type="number" class="form-control" name="user_id" id="user_id" placeholder="Entre el nombre" value="<?php if($edit)print $datos['user_id'];?>" required>
+                <label for="role">Patient</label>
+                <select class="form-control" name="patient_id" id="patient_id" >">
+                    <?php
+                        while($patient = mysqli_fetch_array($patients))
+                        {
+                            $p_id = $patient['patient_id'];
+                            $first_name = $patient['first_name'];
+                            print "<option value='$p_id'> $first_name</option>";
+                        }
+                    ?>   
+                </select>
             </div>
+            
 
+            
+            <div class="form-group">
+                <label for="role">User</label>
+                <select class="form-control" name="user_id" id="user_id" >">
+                    <?php
+                        while($user= mysqli_fetch_array($users))
+                        {
+                            $u_id = $user['user_id'];
+                            $first_name = $user['first_name'];
+                            print "<option value='$u_id'> $first_name</option>";
+                        }
+                    ?>   
+                </select>
+            </div>
+        
             <div class="form-group">
                 <label for="created_at">Created at</label>
                 <input type="date" class="form-control" name="created_at" id="created_at" placeholder="Entre el nombre" value="<?php if($edit)print $datos['created_at'];?>" required>
