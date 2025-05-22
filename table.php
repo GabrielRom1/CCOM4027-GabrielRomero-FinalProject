@@ -42,6 +42,10 @@
     }
 
     $result = mysqli_query($dbconnection,$query);
+
+    if($lowerCaseTable == "patient_conditio"){
+        $lowerCaseTable = "patient_condition";
+    }
 ?>
 
 <!DOCTYPE html>
@@ -59,9 +63,11 @@
 	    <h2>
             <?php
                 if($table == "Medical_Conditions"){
-                    echo "<h1 align=center> Medical Conditions </h1>";
-                } else{
-                    echo "<h1 align=center>$table</h1>" ;
+                    echo "<h1 align=center > Medical Conditions </h1>";
+                } else if($table == "Patient_Condition"){
+                    echo "<h1 align=center >Patient Conditions</h1>";
+                }else{
+                    echo "<h1 align=center >$table</h1>" ;
                 }
             ?>
         </h2>

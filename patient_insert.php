@@ -3,7 +3,7 @@
 
     // si edit tiene algo y id tiene algo entonces es que se quiere editar ese patient
     if( isset($_GET['edit']) && isset($_GET['id']) ){   
-        echo "editar";
+        // echo "editar";
         $edit = $_GET['edit'];
         $id = $_GET['id'];
         $id = mysqli_real_escape_string($dbconnection, $_GET['id']);
@@ -30,9 +30,7 @@
     }elseif(isset($_POST['first_name']) && isset($_POST['last_name']) && isset($_POST['birth_date']) )  {
             // si se setean esas variables es un 
             $edit = false;
-            
-            
-            echo "post";
+            // echo "post";
             
             $first_name = $_POST['first_name'];
             $last_name = $_POST['last_name'];
@@ -43,7 +41,7 @@
 
             // si se setea el id es que se quiere editar
             if(isset($_POST['id']) ){
-                echo "editar";
+                // echo "editar";
                 $patient_id = $_POST['id'];
 
                 $patient_id = mysqli_real_escape_string($dbconnection, $patient_id);
@@ -52,7 +50,7 @@
                 $query = "UPDATE Patients SET first_name = '{$first_name}' , last_name = '{$last_name}' , birth_date = '{$birth_date}' where patient_id = {$patient_id};";
 
                 // $query = "UPDATE Patients SET first_name = '".$first_name."' , last_name = '".$last_name. "' , birth_date = '".$birth_date ."' where patient_id=1;";
-                echo $query;
+                // echo $query;
 
                 if (mysqli_query($dbconnection,$query)) 
                 {
@@ -60,25 +58,24 @@
                 //     mysqli_query($dbconnection,$query_delete_emp);
                     
                 //     header("Location: demo_struc.php");
-                    echo 'update succesfully';
+                    // echo 'update succesfully';
             		header("Location: patients.php");
                 }	 
             }
             else{
 
-                echo "crear";
+                // echo "crear";
                 $query = "INSERT INTO Patients (first_name, last_name, birth_date) values ('{$first_name}', '{$last_name}', '{$birth_date}');";
                 // echo $query;
                 // echo "{$query} con f string";
                 if (mysqli_query($dbconnection,$query)){
-                    echo 'create succesfully';
+                    // echo 'create succesfully';
             		header("Location: patients.php");
                 }	
             }
         } else{
             $edit = false;
-
-            echo "crear2";
+            // echo "crear2";
         }
     $table = 'Patients';
 ?>
@@ -88,6 +85,7 @@
     <head>
         <?php
             include "header.html";
+            include "scriptsBase.html";
         ?>
     </head>
 	<body>
@@ -97,7 +95,7 @@
             ?>
 	    <h2>
             <?php
-                echo $table;
+                echo "<h1 align=center>$table</h1>";
             ?>
         </h2>
 

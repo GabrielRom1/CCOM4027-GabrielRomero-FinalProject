@@ -3,7 +3,7 @@
 
     // si edit tiene algo y id tiene algo entonces es que se quiere editar ese user
     if( isset($_GET['edit']) && isset($_GET['id']) ){   
-        echo "editar";
+        // echo "editar";
         $edit = $_GET['edit'];
         $id = $_GET['id'];
 
@@ -21,7 +21,7 @@
             // si se setean esas variables es un post
             $edit = false;
             
-            echo "post";
+            // echo "post";
             
             $description = $_POST['description'];  
             $urgency_level = $_POST['urgency_level'];            
@@ -35,12 +35,9 @@
             $patient_id = mysqli_real_escape_string($dbconnection, $patient_id);
             $user_id = mysqli_real_escape_string($dbconnection, $user_id);
 
-
-
-
             // si se setea el id es que se quiere editar
             if(isset($_POST['id']) ){
-                echo "editar";
+                // echo "editar";
                 // echo $condition_name;
                 $annotation_id = $_POST['id'];
                 $annotation_id = mysqli_real_escape_string($dbconnection, $annotation_id);
@@ -55,7 +52,7 @@
                         WHERE annotation_id = {$annotation_id};";
 
                 // $query = "UPDATE Medical_Conditions SET first_name = '".$first_name."' , last_name = '".$last_name. "' , birth_date = '".$birth_date ."' where user_id=1;";
-                echo $query;
+                // echo $query;
 
                 if (mysqli_query($dbconnection,$query)) 
                 {
@@ -63,12 +60,12 @@
                 //     mysqli_query($dbconnection,$query_delete_emp);
                     
                 //     header("Location: demo_struc.php");
-                    echo 'update succesfully';
+                    // echo 'update succesfully';
             		header("Location: annotations.php");
                 }	 
             }
             else{
-                echo "crear";
+                // echo "crear";
                 $query = "INSERT INTO Annotations (patient_id, user_id, created_at, description, urgency_level)
                 VALUES ({$patient_id}, {$user_id}, '{$created_at}', '{$description}', '{$urgency_level}');";
                 // echo $query;
@@ -81,7 +78,7 @@
         } else{
             $edit = false;
 
-            echo "crear2";
+            // echo "crear2";
         }
     $table = 'Annotations';
     $query_patients = "SELECT * FROM Patients";
@@ -96,6 +93,7 @@
     <head>
         <?php
             include "header.html";
+            include "scriptsBase.html";
         ?>
     </head>
 	<body>
@@ -105,7 +103,7 @@
             ?>
 	    <h2>
             <?php
-                echo $table;
+                echo "<h1 align=center>$table</h1>";
             ?>
         </h2>
 

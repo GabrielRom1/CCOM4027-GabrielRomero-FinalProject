@@ -3,7 +3,7 @@
 
     // si edit tiene algo y id tiene algo entonces es que se quiere editar ese user
     if( isset($_GET['edit']) && isset($_GET['id']) ){   
-        echo "editar";
+        // echo "editar";
         $edit = $_GET['edit'];
         $id = $_GET['id'];
 
@@ -17,7 +17,7 @@
     }elseif(isset($_POST['first_name']) && isset($_POST['last_name']) && isset($_POST['birth_date']) && isset($_POST['role']))  {
             // si se setean esas variables es un post
             $edit = false;
-            echo "post";
+            // echo "post";
             
             $first_name = $_POST['first_name'];
             $last_name = $_POST['last_name'];
@@ -30,7 +30,7 @@
 
             // si se setea el id es que se quiere editar
             if(isset($_POST['id']) ){
-                echo "editar";
+                // echo "editar";
                 $user_id = $_POST['id'];
 
                 $user_id = mysqli_real_escape_string($dbconnection, $user_id);
@@ -39,7 +39,7 @@
                 $query = "UPDATE Users SET first_name = '{$first_name}' , last_name = '{$last_name}' , birth_date = '{$birth_date}', role = '{$role}' WHERE user_id = {$user_id};";
 
                 // $query = "UPDATE Users SET first_name = '".$first_name."' , last_name = '".$last_name. "' , birth_date = '".$birth_date ."' where user_id=1;";
-                echo $query;
+                // echo $query;
 
                 if (mysqli_query($dbconnection,$query)) 
                 {
@@ -47,24 +47,24 @@
                 //     mysqli_query($dbconnection,$query_delete_emp);
                     
                 //     header("Location: demo_struc.php");
-                    echo 'update succesfully';
+                    // echo 'update succesfully';
             		header("Location: users.php");
                 }	 
             }
             else{
-                echo "crear";
+                // echo "crear";
                 $query = "INSERT INTO Users (first_name, last_name, birth_date, role) VALUES ('{$first_name}', '{$last_name}', '{$birth_date}', '{$role}');";
                 // echo $query;
                 // echo "{$query} con f string";
                 if (mysqli_query($dbconnection,$query)){
-                    echo 'create succesfully';
+                    // echo 'create succesfully';
             		header("Location: users.php");
                 }	
             }
         } else{
             $edit = false;
 
-            echo "crear2";
+            // echo "crear2";
         }
     $table = 'Users';
 ?>
@@ -74,6 +74,7 @@
     <head>
         <?php
             include "header.html";
+            include "scriptsBase.html";
         ?>
     </head>
 	<body>
@@ -83,7 +84,7 @@
             ?>
 	    <h2>
             <?php
-                echo $table;
+                echo "<h1 align=center>$table</h1>";
             ?>
         </h2>
 

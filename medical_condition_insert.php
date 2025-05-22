@@ -3,7 +3,7 @@
 
     // si edit tiene algo y id tiene algo entonces es que se quiere editar ese user
     if( isset($_GET['edit']) && isset($_GET['id']) ){   
-        echo "editar";
+        // echo "editar";
         $edit = $_GET['edit'];
         $id = $_GET['id'];
 
@@ -17,15 +17,15 @@
             // si se setean esas variables es un post
             $edit = false;
             
-            echo "post";
+            // echo "post";
             
             $condition_name = $_POST['condition_name'];            
             $condition_name = mysqli_real_escape_string($dbconnection, $condition_name);
 
             // si se setea el id es que se quiere editar
             if(isset($_POST['id']) ){
-                echo "editar";
-                echo $condition_name;
+                // echo "editar";
+                // echo $condition_name;
                 $condition_id = $_POST['id'];
 
                 $condition_id = mysqli_real_escape_string($dbconnection, $condition_id);
@@ -34,7 +34,7 @@
                 $query = "UPDATE Medical_Conditions SET name = '{$condition_name}' WHERE condition_id = {$condition_id};";
 
                 // $query = "UPDATE Medical_Conditions SET first_name = '".$first_name."' , last_name = '".$last_name. "' , birth_date = '".$birth_date ."' where user_id=1;";
-                echo $query;
+                // echo $query;
 
                 if (mysqli_query($dbconnection,$query)) 
                 {
@@ -42,24 +42,24 @@
                 //     mysqli_query($dbconnection,$query_delete_emp);
                     
                 //     header("Location: demo_struc.php");
-                    echo 'update succesfully';
+                    // echo 'update succesfully';
             		header("Location: medical_conditions.php");
                 }	 
             }
             else{
-                echo "crear";
+                // echo "crear";
                 $query = "INSERT INTO Medical_Conditions (name) VALUES ('{$condition_name}');";
                 // echo $query;
                 // echo "{$query} con f string";
                 if (mysqli_query($dbconnection,$query)){
-                    echo 'create succesfully';
+                    // echo 'create succesfully';
             		header("Location: medical_conditions.php");
                 }	
             }
         } else{
             $edit = false;
 
-            echo "crear2";
+            // echo "crear2";
         }
     $table = 'Medical_Conditions';
 ?>
@@ -69,6 +69,7 @@
     <head>
         <?php
             include "header.html";
+            include "scriptsBase.html";
         ?>
     </head>
 	<body>
@@ -78,7 +79,7 @@
             ?>
 	    <h2>
             <?php
-                echo $table;
+                echo "<h1 align=center>Medical Conditions</h1>";
             ?>
         </h2>
 
