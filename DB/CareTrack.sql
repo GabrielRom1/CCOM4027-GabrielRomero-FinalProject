@@ -28,8 +28,8 @@ CREATE TABLE Patient_Condition (
     patient_id int NOT NULL,
     condition_id int NOT NULL,
     PRIMARY KEY (patient_condition_id),
-    FOREIGN KEY (patient_id) REFERENCES Patients(patient_id),
-    FOREIGN KEY (condition_id) REFERENCES Medical_Conditions(condition_id)
+    FOREIGN KEY (patient_id) REFERENCES Patients(patient_id) ON DELETE CASCADE,
+    FOREIGN KEY (condition_id) REFERENCES Medical_Conditions(condition_id) ON DELETE CASCADE
 );
 
 CREATE TABLE Annotations (
@@ -41,5 +41,5 @@ CREATE TABLE Annotations (
     urgency_level ENUM('low', 'medium','high') NOT NULL,
     PRIMARY KEY (annotation_id),
     FOREIGN KEY (patient_id) REFERENCES Patients(patient_id) ON DELETE CASCADE,
-    FOREIGN KEY (user_id) REFERENCES Users(user_id)
+    FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE
 );
