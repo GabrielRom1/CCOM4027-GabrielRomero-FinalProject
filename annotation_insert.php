@@ -86,6 +86,12 @@
 
     $query_users = "SELECT * FROM Users";
     $users = mysqli_query($dbconnection, $query_users);
+
+    $levels = array(
+        "high" => 3,
+        "medium" => 2,
+        "low" => 1
+    );
 ?>
 
 <!DOCTYPE html>
@@ -117,7 +123,9 @@
                         {
                             $p_id = $patient['patient_id'];
                             $first_name = $patient['first_name'];
-                            print "<option value='$p_id'> $first_name</option>";
+                            print "<option value='$p_id' ";
+                            if($edit) echo  $datos["patient_id"] == $p_id? 'selected':'';
+                            print ">$first_name</option>";
                         }
                     ?>   
                 </select>
@@ -133,7 +141,9 @@
                         {
                             $u_id = $user['user_id'];
                             $first_name = $user['first_name'];
-                            print "<option value='$u_id'> $first_name</option>";
+                            print "<option value='$u_id' ";
+                            if($edit) echo $datos["user_id"] == $u_id? 'selected':'';
+                            print ">$first_name</option>";
                         }
                     ?>   
                 </select>
@@ -151,14 +161,14 @@
 
             <div class="form-group">
                 <label for="urgency_level">Role</label>
-                <select class="form-control" name="urgency_level" id="urgency_level" value="<?php if($edit)print $datos['urgency_level'];?>">
-                    <option value="low">Low</option>
-                    <option value="medium">Medium</option>
-                    <option value="high">High</option>
+                <select class="form-control" name="urgency_level" id="urgency_level">
                 
+
+                    <option value="1" <?php if($edit) echo $datos['urgency_level'] == 'low' ? 'selected' : '' ?>>Low</option>
+                    <option value="2" <?php if($edit) echo $datos['urgency_level'] == 'medium' ? 'selected' : '' ?>>Medium</option>
+                    <option value="3" <?php if($edit) echo $datos['urgency_level'] == 'high' ? 'selected' : '' ?>>High</option>
                 </select>
             </div>
-        
 
             <?php
                 if($edit)print '<input type="hidden" name="id" value="'.$id.'">';

@@ -104,9 +104,9 @@
 
             <div class="form-group">
                 <label for="role">Role</label>
-                <select class="form-control" name="role" id="role" value="<?php if($edit)print $datos['role'];?>">
-                    <option value="employee">Employee</option>
-                    <option value="tutor">Tutor</option>
+                <select class="form-control" name="role" id="role" >
+                    <option value="1" <?php if($edit) echo $datos['role'] == 'employee' ? 'selected' : ''?>  >Employee</option>
+                    <option value="2" <?php if($edit) echo $datos['role'] == 'tutor' ? 'selected' : ''?>  >Tutor</option>
                 </select>
             </div>
 
