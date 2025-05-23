@@ -1,14 +1,9 @@
 <?php
-    // include "header.html";
-    // include "scriptsBase.html";
-    // include "navbar.html";
-
     include "connection.php";
 
     $tables = array("Users", "Patients", "Medical_Conditions", "Patient_Condition", "Annotations");
 
     $lowerCaseTable = strtolower($table);
-
     $lowerCaseTable = substr($lowerCaseTable, 0, strlen($lowerCaseTable)-1);
 
     $table_columns = array(
@@ -29,10 +24,7 @@
     );
 
     $query="SELECT * FROM ".$table;
-
-    // echo "query:";
-    // echo $query;
-
+    
     if($table == "Annotations"){
         $query = "SELECT Annotations.annotation_id ,Patients.first_name, created_at, Users.first_name, Patients.patient_id, Users.user_id,  Annotations.description, Annotations.urgency_level FROM $table JOIN Users JOIN Patients 
         WHERE Annotations.user_id = Users.user_id AND Annotations.patient_id = Patients.patient_id";
@@ -76,24 +68,21 @@
         
         <table id="dtBasicExample" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
             <thead class="thead-light">
-            <tr>
-                <?php
-                $headers = $table_columns[$table];
-                foreach($headers as $header){
-                    echo '<th scope="col">'.$header.'</th>';
-                }
-                ?>
-                <th scope="col">Actions</th>
-            </tr>
+                <tr>
+                    <?php
+                    $headers = $table_columns[$table];
+                    foreach($headers as $header){
+                        echo '<th scope="col">'.$header.'</th>';
+                    }
+                    ?>
+                    <th scope="col">Actions</th>
+                </tr>
             </thead>
             <tbody>
 
             <?php
-                while($row = mysqli_fetch_array($result))
-                {
+                while($row = mysqli_fetch_array($result)){
                     $primary_key = $row[0];
-
-
                     if($table == "Annotations"){
                         // el query devuelve esto:
 
@@ -192,7 +181,6 @@
                     ';
                     print "</td></tr>";		
                     }
-	
                 }
             ?>
             </tbody>
@@ -209,8 +197,8 @@
             </script>
             <script>
                 function confirmDelete(primary_key, table ) {
-                    alert(primary_key);
-                    alert(table);
+                    //alert(primary_key);
+                    //alert(table);
 
                     // Confirmation dialog
                     if (confirm('Si no tienes duda de que quieres borrar oprime OK. Si tienes duda oprime Cancel.')) {
