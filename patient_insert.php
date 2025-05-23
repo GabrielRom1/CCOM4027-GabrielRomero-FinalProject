@@ -24,9 +24,7 @@
             while ($row = mysqli_fetch_array($patient_conditions)) {
                 $patient_condition_ids[] = $row[0];
             }
-
-
-            
+      
         }elseif(isset($_POST['first_name']) && isset($_POST['last_name']) && isset($_POST['birth_date']) )  {
 
                 // si se setean esas variables es un 
@@ -120,9 +118,6 @@
                             // echo "<script>alert('$many_cond_query')</script>"; 
                             mysqli_query($dbconnection,$many_cond_query);       
                         }
-                        
-
-
 
                         // echo 'create succesfully';
                     	header("Location: patients.php");
@@ -173,49 +168,40 @@
             <div class="form-group">
                 
                 <label for="conditions[]">Condiciones Médicas <strong>(Marque todas las que apliquen)</strong></label>
+                <a href="https://ada.uprrp.edu/~gabriel.romero5/PROYECTO/medical_condition_insert.php" class="btn btn-secondary btn-sm" role="button" aria-pressed="true">Crear Condición Médica</a>
+
 
                 <?php
-                if($edit){
-                    while ($condition = mysqli_fetch_array($conditions)) {
-                    
-                        $condition_id = $condition[0];
-                        $condition_name = $condition[1];
+                    if($edit){
+                        while ($condition = mysqli_fetch_array($conditions)) {
+                        
+                            $condition_id = $condition[0];
+                            $condition_name = $condition[1];
 
-                        $checked = in_array($condition_id, $patient_condition_ids) ? "checked" : "";
+                            $checked = in_array($condition_id, $patient_condition_ids) ? "checked" : "";
 
-                        echo "<div class=' form-check'>";
-                        echo "<input class='form-check-input' type='checkbox' name='conditions[]' value='$condition_id' id='cond_$condition_id' $checked>";
-                        echo "<label class='form-check-label' for='cond_$condition_id'>$condition_name</label>";
-                        echo "</div>";
+                            echo "<div class=' form-check'>";
+                            echo "<input class='form-check-input' type='checkbox' name='conditions[]' value='$condition_id' id='cond_$condition_id' $checked>";
+                            echo "<label class='form-check-label' for='cond_$condition_id'>$condition_name</label>";
+                            echo "</div>";
+                        }
+                    }else{
+                        while ($condition = mysqli_fetch_array($conditions)) {
+                            $condition_id = $condition[0];
+                            $condition_name = $condition[1];
+
+                            echo "<div class='form-check'>";
+                            echo "<input class='form-check-input' type='checkbox' name='conditions[]' value='$condition_id' id='cond_$condition_id'>";
+                            echo "<label class='form-check-label' for='cond_$condition_id'>$condition_name</label>";
+                            echo "</div>";
+                        }
                     }
-                }else{
-                    while ($condition = mysqli_fetch_array($conditions)) {
-                        $condition_id = $condition[0];
-                        $condition_name = $condition[1];
-
-                        echo "<div class='form-check'>";
-                        echo "<input class='form-check-input' type='checkbox' name='conditions[]' value='$condition_id' id='cond_$condition_id'>";
-                        echo "<label class='form-check-label' for='cond_$condition_id'>$condition_name</label>";
-                        echo "</div>";
-                    }
-
-                }
-        
                 ?>
         
-
-
-
-
-
-
 
                 <?php
                     if($edit)print '<input type="hidden" name="id" value="'.$id.'">';
                 ?>
-
-
-
 
                 <br>
                 <input type="submit" class="btn btn-primary" value="<?php if($edit)print 'Editar'; else print 'Insertar';?>">
