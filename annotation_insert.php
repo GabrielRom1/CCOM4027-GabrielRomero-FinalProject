@@ -116,7 +116,7 @@
         <form action="annotation_insert.php" method="post">
 
             <div class="form-group">
-                <label for="role">Patient</label>
+                <label for="patient_id">Patient</label>
                 <select class="form-control" name="patient_id" id="patient_id" >">
                     <?php
                         while($patient = mysqli_fetch_array($patients))
@@ -131,10 +131,8 @@
                 </select>
             </div>
             
-
-            
             <div class="form-group">
-                <label for="role">User</label>
+                <label for="user_id">User</label>
                 <select class="form-control" name="user_id" id="user_id" >">
                     <?php
                         while($user= mysqli_fetch_array($users))
@@ -155,15 +153,13 @@
             </div>
 
             <div class="form-group">
-                <label for="description">description</label>
+                <label for="description">Description</label>
                 <input type="text" class="form-control" name="description" id="description" placeholder="Entre el nombre" value="<?php if($edit)print $datos['description'];?>" required>
             </div>
 
             <div class="form-group">
-                <label for="urgency_level">Role</label>
+                <label for="urgency_level">Urgency Level</label>
                 <select class="form-control" name="urgency_level" id="urgency_level">
-                
-
                     <option value="1" <?php if($edit) echo $datos['urgency_level'] == 'low' ? 'selected' : '' ?>>Low</option>
                     <option value="2" <?php if($edit) echo $datos['urgency_level'] == 'medium' ? 'selected' : '' ?>>Medium</option>
                     <option value="3" <?php if($edit) echo $datos['urgency_level'] == 'high' ? 'selected' : '' ?>>High</option>
